@@ -9,7 +9,7 @@
     ],
     "license": "Apache-2.0",
     "minimum-stability": "1.0.0"
-    "support": {  
+    "support":{  
         "source": "https://github.com/gzhantao/think-admin"  
     },
     "authors": [
