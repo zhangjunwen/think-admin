@@ -1,24 +1,22 @@
 {
     "name": "gzhantao/think-admin",
-    "description": "the new thinkphp framework",
+    "description": "the thinkphp framework",
     "type": "project",
     "keywords": [
         "framework",
         "thinkphp",
         "ORM"
     ],
-    "homepage": "https://github.com/gzhantao/think-admin",
     "license": "Apache-2.0",
+    "minimum-stability": "1.0.0"
     "support": {  
         "source": "https://github.com/gzhantao/think-admin"  
     },
     "authors": [
         {
             "name": "gzhantao",
-            "email": "w0k2y1@163.com"
         }
     ],
-    "minimum-stability": "stable",  
     "require": {
         "php": ">=5.4.0",
         "topthink/framework": "5.0.*",
