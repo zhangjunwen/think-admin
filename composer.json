@@ -7,7 +7,7 @@
         "thinkphp",
         "ORM"
     ],
-    "homepage": "http://thinkphp.cn/",
+    "homepage": "https://github.com/gzhantao/think-admin",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -15,6 +15,7 @@
             "email": "w0k2y1@163.com"
         }
     ],
+    "minimum-stability": "stable",  
     "require": {
         "php": ">=5.4.0",
         "topthink/framework": "5.0.*",
