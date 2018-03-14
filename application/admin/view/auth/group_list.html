@@ -1,0 +1,91 @@
+<include file="public:header"/>
+<style>
+    .tabBar span{
+        margin-right: 10px;
+    }
+    .tabBar span a{
+        color:#000000;
+        text-decoration: none;
+    }
+    .tabBar .active{
+        background-color: #0f9ae0;
+    }
+    .tabBar .active a{
+        color:#FFFFFF;
+    }
+</style>
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页 <span class="c-gray en">&gt;</span>
+    系统管理 <span class="c-gray en">&gt;</span>
+    用户组管理
+    <a class="btn btn-success radius r" onclick="removeIframe()" style="line-height:1.6em;margin-top:3px" href="javascript:void(0);" title="关闭" ><i class="Hui-iconfont">&#xe6a6;</i></a>
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-right:20px;" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="tabBar cl">
+    <span class="active"><a href="/admin/auth/group_list">用户组管理</a></span>
+    <span><a href="/admin/auth/rule_list">权限管理</a></span>
+</div>
+<div class="page-container">
+    <a class="btn btn-primary radius" style="float:right;margin-bottom: 20px" data-title="添加用户组" onclick="alertPage('用户组管理 > 添加用户组','/admin/auth/add_group',600,200)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加用户组</a>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive" style="table-layout: fixed;">
+            <thead>
+            <tr class="text-c">
+                <th width="200">用户组名称</th>
+                <th>权限节点</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="group_list" item='vo'>
+                <tr class="text-c">
+                    <td><{$vo.title}></td>
+                    <td>
+                        <foreach name="vo['rules_list']" item="rv">
+                            <{$rv['title']}>、
+                        </foreach>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger size-MINI radius"onclick="del('<{$vo.group_id}>')">删除</button>
+                        <button class="btn btn-primary size-MINI radius"onclick="alertPage('用户组管理 > 权限配置','/admin/auth/save_rule/group_id/<{$vo.group_id}>',600,350)">权限配置</button>
+                    </td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function page(title,url){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+    function alertPage(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    function del(group_id){
+        layer.confirm('您确认要删除吗？',function(){
+            $.ajax({
+                type: 'POST',
+                url: '/admin/auth/del_group',
+                data:{group_id:group_id},
+                success: function(e){
+                    if(e.code == 0){
+                        layer.alert(e.msg, {icon: 6},function () {
+                            window.location.reload();
+                        });
+                    }else{
+                        layer.alert(e.msg, {icon: 5});
+                    }
+                }
+            });
+        });
+    }
+</script>
+<include file="public:footer"/>

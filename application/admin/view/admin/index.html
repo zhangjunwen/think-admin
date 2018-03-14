@@ -1,0 +1,69 @@
+<include file="public:header"/>
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页 <span class="c-gray en">&gt;</span>
+    系统管理 <span class="c-gray en">&gt;</span>
+    管理员
+    <a class="btn btn-success radius r" onclick="removeIframe()" style="line-height:1.6em;margin-top:3px" href="javascript:void(0);" title="关闭" ><i class="Hui-iconfont">&#xe6a6;</i></a>
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-right:20px;" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+    <div class="text-c">
+        <a class="btn btn-primary radius" style="float:right;margin-bottom: 20px" data-title="添加管理员账号" onclick="page('添加管理员账号','/admin/admin/build_admin',800,420)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加管理员账号</a>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive" style="table-layout: fixed;">
+            <thead>
+            <tr class="text-c">
+                <th>账户</th>
+                <th>部门</th>
+                <th>姓名</th>
+                <th>角色</th>
+                <th width="300">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name='data["list"]' id='vo'>
+                <tr class="text-c">
+                    <td><{$vo.username}></td>
+                    <td><{$vo.branch}></td>
+                    <td><{$vo.name}></td>
+                    <td><{$vo.group_title}></td>
+                    <td>
+                        <button class="btn btn-primary size-MINI radius"onclick="page('权限配置','<{:url(\'auth/set_group\',[\'admin_id\' => $vo.admin_id])}>',800,330)">权限配置</button>
+                        <button class="btn btn-primary size-MINI radius"onclick="page('修改资料','<{:url(\'update_msg\',[\'admin_id\' => $vo.admin_id])}>',800,330)">修改资料</button>
+                        <button class="btn btn-primary size-MINI radius"onclick="page('修改密码','<{:url(\'update_pwd\',[\'admin_id\' => $vo.admin_id])}>',800,250)">修改密码</button>
+                        <button class="btn btn-danger size-MINI radius"onclick="del('<{$vo.admin_id}>')">删除</button>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+        <{$data['page']}>
+    </div>
+</div>
+<include file="public:footer"/>
+<script type="text/javascript">
+    function page(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    function del(admin_id){
+        layer.confirm('您确认要删除该账户吗？',function(){
+            $.ajax({
+                type: 'POST',
+                url: '<{:url("del_admin")}>',
+                data:{admin_id:admin_id},
+                success: function(e){
+                    if(e.code == 0){
+                        layer.alert(e.msg, {icon: 6},function () {
+                            window.location.reload();
+                        });
+                    }else{
+                        layer.alert(e.msg, {icon: 5});
+                    }
+                }
+            });
+        });
+    }
+</script>

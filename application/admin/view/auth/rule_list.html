@@ -1,0 +1,50 @@
+<include file="public:header"/>
+<style>
+    .tabBar span{
+        margin-right: 10px;
+    }
+    .tabBar span a{
+        color:#000000;
+        text-decoration: none;
+    }
+    .tabBar .active{
+        background-color: #0f9ae0;
+    }
+    .tabBar .active a{
+        color:#FFFFFF;
+    }
+</style>
+<body>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页 <span class="c-gray en">&gt;</span>
+    系统管理 <span class="c-gray en">&gt;</span>
+    权限管理
+    <a class="btn btn-success radius r" onclick="removeIframe()" style="line-height:1.6em;margin-top:3px" href="javascript:void(0);" title="关闭" ><i class="Hui-iconfont">&#xe6a6;</i></a>
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px;margin-right:20px;" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="tabBar cl">
+    <span><a href="/admin/auth/group_list">用户组管理</a></span>
+    <span class="active"><a href="/admin/auth/rule_list">权限管理</a></span>
+</div>
+<div class="page-container">
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive" style="table-layout: fixed;">
+            <thead>
+            <tr class="text-c">
+                <th width="200">权限名称</th>
+                <th>别名</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="rule_list" item='vo'>
+                <tr class="text-c">
+                    <td><{$vo.title}></td>
+                    <td><{$vo.name}></td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="public:footer"/>

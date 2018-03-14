@@ -1,0 +1,51 @@
+<include file="public:header"/>
+<body>
+<div class="page-container">
+    <form class="form form-horizontal" id="form-article-add" method="post" onsubmit="return false">
+        <input type="hidden" name="user_id" value="<{$user_id}>">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>用户名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="<{$user.username}>" placeholder="" name="username">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>部门：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="<{$user.branch}>" placeholder="" name="branch">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="<{$user.name}>" placeholder="" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>手机号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="<{$user.phone}>" placeholder="" name="phone">
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button onClick="save_submit(2);" class="btn btn-secondary radius" type="button">保存</button>
+                <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="public:footer"/>
+<script>
+    function save_submit(){
+        $("form").ajaxSubmit(function(e){
+            if(e.code == 0){
+                layer.alert(e.msg, {icon: 6},function () {
+                    window.parent.location.reload();
+                });
+            }else{
+                layer.alert(e.msg, {icon: 5});
+            }
+        });
+    }
+</script>
