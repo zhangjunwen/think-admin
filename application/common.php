@@ -44,7 +44,7 @@ function wlog($message,$logname = "",$logPath='./log/'){
     if (!is_dir($path)) mkdir($path,0755,true);
     $destination = $path.date('y_m_d').'.log';
     //检测日志文件大小，超过配置大小则备份日志文件重新生成
-    if(is_file($destination)){
+    if(is_file($destination) && floor(C('LOG_FILE_SIZE')) <= filesize($destination) ){
         rename($destination,dirname($destination).'/'.time().'-'.basename($destination));
     }
     if(is_array($message)){
@@ -53,8 +53,7 @@ function wlog($message,$logname = "",$logPath='./log/'){
         });
         $message = urldecode(json_encode($message));
     }
-//     error_log($now."\n".$message."\n",3,$destination,$extra);
-    error_log($now."\n".$message."\n",3,$destination);
+    error_log($now."\n".$message."\n",3,$destination,$extra);
 }
 
 /**
